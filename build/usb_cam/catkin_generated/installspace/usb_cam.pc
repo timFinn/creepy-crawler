@@ -1,0 +1,8 @@
+prefix=/home/robot/ROS/creepy_crawler/install
+
+Name: usb_cam
+Description: Description of usb_cam
+Version: 0.3.6
+Cflags: -I/home/robot/ROS/creepy_crawler/install/include
+Libs: -L/home/robot/ROS/creepy_crawler/install/lib -lusb_cam
+Requires: 

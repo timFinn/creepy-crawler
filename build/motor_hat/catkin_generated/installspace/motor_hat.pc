@@ -1,0 +1,8 @@
+prefix=/home/robot/ROS/creepy_crawler/install
+
+Name: motor_hat
+Description: Description of motor_hat
+Version: 1.0.0
+Cflags: 
+Libs: -L/home/robot/ROS/creepy_crawler/install/lib 
+Requires: 

@@ -1,0 +1,1 @@
+/home/robot/ROS/creepy_crawler/devel/.private/motor_hat/lib/pkgconfig/motor_hat.pc

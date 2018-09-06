@@ -1,0 +1,27 @@
+<launch>
+
+    <!-- RIGHT WHEEL CONTROL -->
+  <node pkg="motor_hat" type="motor_hat_node" name="rmotor" output="screen">
+	  <remap from="motor_cmd" to="rmotor"/>
+	  <rosparam param="motor_id">0</rosparam>
+  
+  </node>
+  
+  <!-- LEFT WHEEL CONTROL -->
+  <node pkg="motor_hat" type="motor_hat_node" name="lmotor" output="screen">
+
+	  <remap from="motor_cmd" to="lmotor"/>
+	  <rosparam param="motor_id">1</rosparam>
+  
+  </node>
+  
+  <!-- WHEEL ENCODERS -->
+  <node pkg="motor_hat" type="encoder_node" name="encoders" output="screen"/>
+  
+  <!-- LAUNCH TEMP/HUMIDITY SENSOR NODE -->
+  <node pkg="motor_hat" type="temp_humi_node" name="temp_humi_node" output="screen"/>
+  
+
+
+
+</launch>

@@ -1,0 +1,2 @@
+- setup-file:
+    local-name: /home/robot/ROS/creepy_crawler/install/setup.sh

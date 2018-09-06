@@ -1,0 +1,102 @@
+<launch>
+  
+  <!-- LAUNCH HAT NODES -->
+  <include file="$(find motor_hat)/launch/hat_nodes.launch" />
+  
+  <!-- LAUNCH ROSBRIDGE SERVER -->
+  <include file="$(find rosbridge_server)/launch/rosbridge_websocket.launch" >
+  </include>
+
+  <!-- LAUNCH WEB VIDEO SERVER -->
+  <node pkg="web_video_server" type="web_video_server" name="web_video_server" output="screen"/>
+
+
+
+  <!-- LAUNCH BASE_CONTROLLER NODES -->
+
+  <rosparam param="ticks_meter">1374</rosparam>
+
+  <!-- LEFT WHEEL PID -->
+  <node pkg="differential_drive" type="pid_velocity.py" name="lpid_velocity" output="screen">
+      <remap from="wheel" to="lwheel"/>
+      <remap from="motor_cmd" to="lmotor"/>
+      <remap from="wheel_vtarget" to="lwheel_vtarget"/>
+      <remap from="wheel_vel" to="lwheel_vel"/>
+      
+	  <!--PID tuning constants -->
+	  <rosparam param="Kp">280</rosparam>
+	  <rosparam param="Ki">65</rosparam>
+	  <rosparam param="Kd">0</rosparam>
+
+	  <!-- encoder output min max vals -->
+	  <rosparam param="encoder_min">-255</rosparam>	
+	  <rosparam param="encoder_max">255</rosparam>
+	  
+	  <!-- arbitrary power output to motors in min/max -->
+	  <rosparam param="out_min">-255</rosparam>
+	  <rosparam param="out_max">255</rosparam>
+
+	  <!-- misc, rate of publication for mtr cmmnds -->
+      <rosparam param="rate">30</rosparam> 
+      <rosparam param="timeout_ticks">4</rosparam>
+      <rosparam param="rolling_pts">5</rosparam>
+
+	  <!-- CUSTOM - original motor float max that pid_velocity outputs. -->
+	  <rosparam param="orig_motor_float_max">200</rosparam>
+	  <rosparam param="orig_motor_float_min">-200</rosparam>
+  
+  </node>
+
+  <!-- RIGHT WHEEL PID -->
+  <node pkg="differential_drive" type="pid_velocity.py" name="rpid_velocity" output="screen">
+      <remap from="wheel" to="rwheel"/>
+      <remap from="motor_cmd" to="rmotor"/>
+      <remap from="wheel_vtarget" to="rwheel_vtarget"/>
+      <remap from="wheel_vel" to="rwheel_vel"/>
+	  
+	  <!--PID tuning constants -->
+      <rosparam param="Kp">280</rosparam>
+      <rosparam param="Ki">65</rosparam>
+      <rosparam param="Kd">0</rosparam>
+   	  
+	  <!-- encoder output min max vals -->
+	  <rosparam param="encoder_min">-255</rosparam>	
+	  <rosparam param="encoder_max">255</rosparam>
+
+	  <!-- arbitrary power output to motors in min/max -->
+	  <rosparam param="out_min">-255</rosparam>
+      <rosparam param="out_max">255</rosparam>
+
+	  <!-- misc, rate of publication for mtr cmmnds -->
+      <rosparam param="rate">30</rosparam>
+      <rosparam param="timeout_ticks">4</rosparam>
+      <rosparam param="rolling_pts">5</rosparam>
+
+	  <!-- CUSTOM - original motor float max that pid_velocity outputs. -->
+	  <rosparam param="orig_motor_float_max">200</rosparam>
+	  <rosparam param="orig_motor_float_min">-200</rosparam>
+  
+  </node>
+
+  <!-- VIRTUAL JOYSTICK  
+  <node pkg="differential_drive" type="virtual_joystick.py" name="virtual_joystick" output="screen"/>
+  -->
+  
+  <!-- TWIST TO MOTORS -->
+  <node pkg="differential_drive" type="twist_to_motors.py" name="twist_to_motors" output="screen">
+    <rosparam param="base_width">0.17</rosparam>
+  </node>
+  
+  
+  <!-- USB CAMERA -->
+  <node name="usb_cam" pkg="usb_cam" type="usb_cam_node" output="screen" >
+    <param name="video_device" value="/dev/video0" />
+    <param name="image_width" value="640" />
+    <param name="image_height" value="480" />
+    <param name="pixel_format" value="yuyv" />
+    <param name="camera_frame_id" value="usb_cam" />
+    <param name="io_method" value="mmap"/>
+  </node>
+
+  
+</launch>

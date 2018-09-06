@@ -1,0 +1,2 @@
+- setup-file:
+    local-name: /home/robot/ROS/creepy_crawler/devel/.private/usb_cam/setup.sh
